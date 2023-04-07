@@ -36,6 +36,8 @@ const Login = () => {
     
 
     }, [])
+
+
     
 
 
@@ -106,7 +108,6 @@ const Login = () => {
                 )  
 
             setValues({ name: '', email: '', password: '' });
-            setErrMsg(null)
             navigate("/home");
 
         } 
@@ -178,6 +179,8 @@ const Login = () => {
                 onChange = {handleChangeRegister}
                 />
             <button>Register</button>
+            <p className="message">Not registered? <a href="#" onClick={() => SetloginOrRegister(!loginOrRegister)}>Create an account</a></p>
+
 
 
         </form>
@@ -204,15 +207,12 @@ const Login = () => {
                 <button>login</button>
                 </div>
                 <button onClick={guestAccess}>Guest Access</button>
-
-
+                <p className="message">Already registered? <a href="#" onClick={() => SetloginOrRegister(!loginOrRegister)}>Login</a></p>
             </form>
             )
             
             
         }
-
-        <p className="message">Not registered? <a href="#" onClick={() => SetloginOrRegister(!loginOrRegister)}>Create an account</a></p>
 
         <p className='errorMessage'>{errMsg}</p>
 
