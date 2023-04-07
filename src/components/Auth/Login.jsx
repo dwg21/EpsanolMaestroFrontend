@@ -94,7 +94,7 @@ const Login = () => {
         
     }
 
-    const guestAccess = async () => {
+    const guestAccess = async (e) => {
         e.preventDefault(); //stops reloading page
         const loginUser = {
             "email": "john@gmail.com",
