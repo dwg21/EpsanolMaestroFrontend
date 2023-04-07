@@ -1,0 +1,21 @@
+.userData {
+    display: flex;
+    max-width: 500px;
+    margin-bottom: 2rem;
+    
+
+
+}
+
+@media only screen and (max-width: 600px)  {
+    .userData {
+        flex-direction: column;
+    }
+}
+
+
+
+.dataMessage {
+    text-align: center;
+    font-size: large;
+}

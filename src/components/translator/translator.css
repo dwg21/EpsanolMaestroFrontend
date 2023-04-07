@@ -1,0 +1,12 @@
+
+.translations {
+    font-size: large;
+}
+
+.line {
+    border: grey 1.5px solid;
+}
+
+.showTranslationToggle:hover {
+    cursor: pointer;
+}

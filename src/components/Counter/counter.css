@@ -1,0 +1,25 @@
+
+
+.CounterAll {
+    margin-left:0px;
+    font-family:helvetica;
+    font-size:72px;
+}
+
+.digit {
+    background:black;
+    color:white;
+    border-radius:5px;
+    padding:0 4px;
+    margin:0 2.5px;
+}
+
+
+.container { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    min-width: 200px;
+    
+}
