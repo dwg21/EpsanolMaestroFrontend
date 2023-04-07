@@ -95,6 +95,7 @@ const Login = () => {
     }
 
     const guestAccess = async () => {
+        e.preventDefault(); //stops reloading page
         const loginUser = {
             "email": "john@gmail.com",
             "password": "secret"
@@ -104,7 +105,6 @@ const Login = () => {
                 LOGIN_URL, 
                 loginUser,
                 {headers: {'Content-Type': 'application/json'}},
-                
                 )  
 
             setValues({ name: '', email: '', password: '' });
@@ -179,7 +179,7 @@ const Login = () => {
                 onChange = {handleChangeRegister}
                 />
             <button>Register</button>
-            <p className="message">Not registered? <a href="#" onClick={() => SetloginOrRegister(!loginOrRegister)}>Create an account</a></p>
+            <p className="message">Already registered? <a href="#" onClick={() => SetloginOrRegister(!loginOrRegister)}>Login</a></p>
 
 
 
@@ -207,7 +207,7 @@ const Login = () => {
                 <button>login</button>
                 </div>
                 <button onClick={guestAccess}>Guest Access</button>
-                <p className="message">Already registered? <a href="#" onClick={() => SetloginOrRegister(!loginOrRegister)}>Login</a></p>
+                <p className="message">Not registered? <a href="#" onClick={() => SetloginOrRegister(!loginOrRegister)}>Create an account</a></p>
             </form>
             )
             
