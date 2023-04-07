@@ -1,6 +1,5 @@
 import { Typography, Box, Stack, TextField, Divider } from "@mui/material";
 import { useState, useContext, useEffect} from "react";
-import { GetTranslation } from '../../util/DeepLApi'
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
@@ -12,7 +11,9 @@ import './translator.css';
 
 
 import ServerApi from '../../serverApi/axios'
-const UserDataUrl = '/api/v1/userdata'; 
+const UserDataUrl = 'api/v1/userdata'
+const translateURl = '/api/v1/translate '; 
+
 
 
 const Translator = () => {
@@ -25,7 +26,6 @@ const Translator = () => {
       
     }
 
-
   }, [])
 
   
@@ -36,20 +36,48 @@ const Translator = () => {
   const [inputLanaguage, setInputLanaguage] = useState('EN');
   const [outputLanaguage, setOutputLanaguage] = useState('ES');
 
-  
-  const handleTranslate = async () => {
-    const result = await GetTranslation(translationInput, inputLanaguage, outputLanaguage )
-    setTranslationOutput(result) 
-    const TranslationRecord =  {
-      "translation" : [translationInput,result ]
+  const TranslationData = {
+    "input": "hello how are you",
+    "sourceLang": "EN",
+    "targetLang": "ES"
+  }
+
+
+  const GetTranslation = async () => {
+    const TranslationData = {
+      "input": translationInput,
+      "sourceLang": inputLanaguage,
+      "targetLang": outputLanaguage
     }
-    console.log(TranslationRecord)
+
+    try {
+      const {data} = await ServerApi.post(
+      translateURl,
+      TranslationData      
+      )
+      setTranslationOutput(data)
+      updateToDB(data)
+
+
+      }
+  catch (error) {
+      console.log(error)
+}
+  }
+
+
+
+  const updateToDB = async (result) => {
+    const TranslationRecord =  {
+      "translation" : [translationInput, result ]
+    }
+    
+    
     try {
       const  {data} = await ServerApi.post(
       UserDataUrl,
-      TranslationRecord,
-      {headers: {'Content-Type': 'application/json'}}
-      ) 
+      TranslationRecord
+            ) 
       console.log(data)
 
       }
@@ -76,7 +104,7 @@ const Translator = () => {
 
       <Box p = {2} sx = {{background: 'white'}} alignItems = 'center' justifyItems='center' display='flex' flexDirection='column' height= '50vh'>
         <Typography variant = 'h5' sx = {{marginBottom: '1rem'}}>
-          <h2 className="heading">Translator</h2>
+          <h5 className="heading">Translator</h5>
         </Typography>
 
         
@@ -123,7 +151,7 @@ const Translator = () => {
 
 
           <Box p = {2} sx = {{flex: '1', minWidth: {xl: '700px', lg: '600px', md: '450px', sm: '350px', xs: '375px'}}}>
-            <Box p = {2} sx = {{flex: '1', alignContent: 'center', alignContent: 'center', justifyContent:'center', border: 'gray 2px solid', width: '100%', minHeight: '264px'}}  justifyContent = 'center' alightContent = 'center'>
+            <Box p = {2} sx = {{flex: '1', alignContent: 'center', justifyContent:'center', border: 'gray 2px solid', width: '100%', minHeight: '264px'}}  justifyContent = 'center' alightContent = 'center'>
               {translationOutput}
               <Typography sx  >
               </Typography>
@@ -132,7 +160,7 @@ const Translator = () => {
           
 
         </Stack>
-        <button className = 'button' onClick = {handleTranslate} >Translate</button>
+        <button className = 'button' onClick = {GetTranslation} >Translate</button>
         <Box>
           {userData.PastTranslations &&  <h1 className="showTranslationToggle" onClick={() => SetShowTranslations(!showTranslations)}>View previous translations <VisibilityIcon /> </h1>  
 }

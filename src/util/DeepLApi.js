@@ -2,6 +2,7 @@
 import axios from 'axios'
 const authKey = '34ce88e3-d862-f97c-5e17-9e503e8541ed:fx';
 
+
 // Fucntion to return translation between english and spanish 
 
 export const GetTranslation =  async (input, sourceLang, targetLang) => {
@@ -11,7 +12,7 @@ export const GetTranslation =  async (input, sourceLang, targetLang) => {
     const response = await axios.get(deeplUrl)
     const data = response.data.translations[0].text
     return data
-     } catch(error) {
+    } catch(error) {
             console.error(error);
             return 'Could not translate';
 
