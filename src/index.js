@@ -5,7 +5,7 @@ import App from './App';
 import { AuthProvider } from './context/AuthProvider';
 import {disableReactDevTools} from '@fvilers/disable-react-devtools';
 
-if (process.env.NODE_ENV === 'production') disableReactDevTools;
+if (process.env.NODE_ENV === 'production') disableReactDevTools();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
